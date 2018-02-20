@@ -75,6 +75,8 @@ svg.selectAll("text")
 var timedata;
 var txscale;
 var tyscale;
+var txaxis;
+var tyaxis;
 
 var rowConverter = function(d) {
     return {
@@ -102,6 +104,9 @@ d3.csv("time_scale_data.csv", rowConverter, function(data) {
                     ])
                     .range([h - padding, padding]);
 
+    txaxis = d3.axisBottom(txscale);
+    tyaxis = d3.axisLeft(tyscale);
+
     svgt = d3.select("#svg2")
              .append("svg")
              .attr("width", w)
@@ -119,6 +124,15 @@ d3.csv("time_scale_data.csv", rowConverter, function(data) {
         })
         .attr("r", 2);
 
+    svgt.selectAll("line")
+        .data(timedata)
+        .enter().append('line')
+            .attr('x1', function(d) { return txscale(d.Date);})
+            .attr('y1', function(d) { return tyscale(d.Amount);})
+            .attr('x2', function(d) { return txscale(d.Date);})
+            .attr('y2', h - padding)
+            .style('stroke', '#bbb');
+
     svgt.selectAll("text")
         .data(timedata)
         .enter()
@@ -135,6 +149,16 @@ d3.csv("time_scale_data.csv", rowConverter, function(data) {
         .attr("font-family", "sans-serif")
         .attr("font-size", "11px")
         .attr("fill", "#bbb");
+
+    svgt.append("g")
+        .attr("class", "axis")
+        .attr('transform', 'translate(0,' + (h - padding) + ')')
+        .call(txaxis);
+
+    svgt.append('g')
+        .attr('class', 'axis')
+        .attr('transform', 'translate(' + padding + ',' + 0 + ')')
+        .call(tyaxis);
 })
 
 ///////// AXES /////////
@@ -193,55 +217,79 @@ svga.append("g")
 
 
 ///////// AXES RANDOM POINTS /////////
-var xaxis = d3.axisBottom(xscale)
-                .ticks(5);
 
-var yaxis = d3.axisLeft(yscale)
-                .ticks(5);
+var datasetrandom = [];
+var numDataPoints = 50;
+var xRange = Math.random() * 1000;
+var yRange = Math.random() * 1000;
+for (var i = 0; i < numDataPoints; i++) {
+    var newNumber1 = Math.floor(Math.random() * xRange);
+    var newNumber2 = Math.floor(Math.random() * yRange);
+    datasetrandom.push([newNumber1, newNumber2]);
+}
 
-svga = d3.select("#svg3")
+var rxscale = d3.scaleLinear()
+                .domain([0, d3.max(datasetrandom, function(d) {return d[0];})])
+                .range([padding, w - padding * 2])
+                .nice();
+
+var ryscale = d3.scaleLinear()
+                .domain([0, d3.max(datasetrandom, function(d) {return d[1];})])
+                .range([h - padding, padding])
+                .nice();
+
+var rascale = d3.scaleSqrt()
+    .domain([0, d3.max(datasetrandom, function(d) {return d[1];})])
+    .range([0, 10])
+    .nice();
+
+var rxaxis = d3.axisBottom(rxscale).ticks(5);
+var ryaxis = d3.axisLeft(ryscale).ticks(5);
+
+svgr = d3.select("#svg4")
          .append("svg")
          .attr("width", w)
          .attr("height", h)
 
-svga.selectAll("circle")
-    .data(dataset2d)
+svgr.selectAll("circle")
+    .data(datasetrandom)
     .enter()
     .append("circle")
     .attr("cx", function(d) {
-        return xscale(d[0]);
+        return rxscale(d[0]);
     })
     .attr("cy", function(d) {
-        return yscale(d[1]);
+        return ryscale(d[1]);
     })
     .attr("r", function(d) {
-        return ascale(d[1]);
+        return rascale(d[1]);
     });
 
-svga.selectAll("text")
-    .data(dataset2d)
+/*
+svgr.selectAll("text")
+    .data(datasetrandom)
     .enter()
     .append("text")
     .text(function(d) {
         return "(" + d[0] + "," + d[1] + ")";
     })
     .attr("x", function(d) {
-        return xscale(d[0]) + 10;
+        return rxscale(d[0]) + 10;
     })
     .attr("y", function(d) {
-        return yscale(d[1]) - 10;
+        return ryscale(d[1]) - 10;
     })
     .attr("text-anchor", "middle")
     .attr("font-family", "sans-serif")
     .attr("font-size", "11px")
-    .attr("fill", "teal");
-
-svga.append("g")
+    .attr("fill", "red");
+*/
+svgr.append("g")
     .attr("class", "axis")
     .attr("transform", "translate(0," + (h - padding) + ")")
-    .call(xaxis);
+    .call(rxaxis);
 
-svga.append("g")
+svgr.append("g")
     .attr("class", "axis")
     .attr("transform", "translate(" + padding + ",0)")
-    .call(yaxis);
+    .call(ryaxis);
