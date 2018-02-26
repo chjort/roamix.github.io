@@ -23,7 +23,7 @@ var svgbar = d3.select("#svg5")
 
 svgbar.selectAll("rect")
     .data(dataset)
-    .enter()
+	.enter()
     .append('rect')
     .attr('x', function(d, i) {
         return xscale(i);
@@ -58,62 +58,166 @@ svgbar.selectAll("text")
         .attr("fill", "white");
 
 
-var easeb = d3.easeCubicInOut;
 d3.select("#button1")
-    .on("click", function() {
-        var numvalues = dataset.length
-        var maxvalue = 26;
-        dataset = [];
-        for (var i = 0; i < numvalues; i++) {
-            var newNumber = Math.floor(Math.random() * maxvalue);
-            dataset.push(newNumber);
-        }
+	.on("click", function() {
 
-        yscale.domain([0, d3.max(dataset)]);
+	var maxValue = 25;
+	var newNumber = Math.floor(Math.random() * maxValue);
+	dataset.push(newNumber);
 
-        svgbar.selectAll("rect")
-        .data(dataset)
-        .transition()
-        .duration(500)
-        .delay(function(d,i) { return i / dataset.length*1000;})
-        .ease(easeb)
-        .attr('y', function(d) {
-            return h - yscale(d);
-        })
-        .attr('height', function(d) {
-            return yscale(d);
-        })
-        .attr('fill', function(d) {
-            return "rgb(0, 250, " + Math.round(d * 10) + ")";
-        });
 
-        svgbar.selectAll("text")
-            .data(dataset)
-            .transition()
-            .duration(500)
-            .delay(function(d,i) { return i / dataset.length*1000;})
-            .ease(easeb)
-            .text(function(d) {
-                return d;
-            })
-            .attr("x", function(d, i) {
-                return xscale(i) + xscale.bandwidth() / 2;
-            })
-            .attr("y", function(d) {
-                if (d <= 1) {
-                    return h - yscale(d) - 2;
-                } else {
-                    return h - yscale(d) + 14;
-                }
-            })
-            .attr('fill', function(d) {
-                if (d <= 1) {
-                    return "black";
-                } else {
-                    return "white";
-                }
-            })
-    });
+	xscale.domain(d3.range(dataset.length));
+	yscale.domain([0, d3.max(dataset)]);
+
+	var bars = svgbar.selectAll("rect")
+				.data(dataset);
+
+	bars.enter()
+		.append("rect")
+		.attr("x", w)
+		.attr("y", function(d) {
+		return h - yscale(d);
+		})
+		.attr("width", xscale.bandwidth())
+		.attr("height", function(d) {
+			return yscale(d);
+		})
+		.attr("fill", function(d) {
+			return "rgb(0, 250, " + Math.round(d * 10) + ")";
+		})
+		.merge(bars)
+		.transition()
+		.duration(500)
+		.attr("x", function(d, i) {
+			return xscale(i);
+		})
+		.attr("y", function(d) {
+			return h - yscale(d);
+		})
+		.attr("width", xscale.bandwidth())
+		.attr("height", function(d) {
+			return yscale(d);
+		});
+
+	var texts = svgbar.selectAll("text")
+	   				.data(dataset)
+	texts.enter()
+		 .append("text")
+		 .attr('x', w)
+		 .attr('y', function(d) {
+			 return h - yscale(d) + 14;
+		 })
+	   	 .text(function(d) {
+			return d;
+	   	 })
+		 .merge(texts)
+		 .transition()
+		 .duration(500)
+	   	 .attr("x", function(d, i) {
+			return xscale(i) + xscale.bandwidth() / 2;
+	   	 })
+	   	 .attr("y", function(d) {
+			 if (d <= 1) {
+             	return h - yscale(d) - 2;
+            } else {
+            	return h - yscale(d) + 14;
+            }
+	   	 })
+		 .attr("text-anchor", "middle")
+		 .attr("font-family", "sans-serif")
+		 .attr("font-size", "11px")
+		 .attr('fill', function(d) {
+         	if (d <= 1) {
+        		return "black";
+            } else {
+             	return "white";
+         	}
+		});
+});
+
+d3.select("#button2")
+	.on("click", function() {
+
+	dataset.pop();
+	xscale.domain(d3.range(dataset.length));
+	yscale.domain([0, d3.max(dataset)]);
+
+	var bars = svgbar.selectAll("rect")
+				.data(dataset);
+
+
+	bars.enter()
+		.append("rect")
+		.attr("x", w)
+		.attr("y", function(d) {
+		return h - yscale(d);
+		})
+		.attr("width", xscale.bandwidth())
+		.attr("height", function(d) {
+			return yscale(d);
+		})
+		.attr("fill", function(d) {
+			return "rgb(0, 250, " + Math.round(d * 10) + ")";
+		})
+		.merge(bars)
+		.transition()
+		.duration(500)
+		.attr("x", function(d, i) {
+			return xscale(i);
+		})
+		.attr("y", function(d) {
+			return h - yscale(d);
+		})
+		.attr("width", xscale.bandwidth())
+		.attr("height", function(d) {
+			return yscale(d);
+		});
+
+	bars.exit()
+		.transition()
+		.duration(500)
+		.attr('x', w)
+		.remove();
+
+	texts.enter()
+		 .append("text")
+		 .attr('x', w)
+		 .attr('y', function(d) {
+			 return h - yscale(d) + 14;
+		 })
+	   	 .text(function(d) {
+			return d;
+	   	 })
+		 .merge(texts)
+		 .transition()
+		 .duration(500)
+	   	 .attr("x", function(d, i) {
+			return xscale(i) + xscale.bandwidth() / 2;
+	   	 })
+	   	 .attr("y", function(d) {
+			 if (d <= 1) {
+             	return h - yscale(d) - 2;
+            } else {
+            	return h - yscale(d) + 14;
+            }
+	   	 })
+		 .attr("text-anchor", "middle")
+		 .attr("font-family", "sans-serif")
+		 .attr("font-size", "11px")
+		 .attr('fill', function(d) {
+         	if (d <= 1) {
+        		return "black";
+            } else {
+             	return "white";
+         	}
+		});
+
+	texts.exit()
+		.transition()
+		.duration(500)
+		.attr('x', w)
+		.remove();
+});
 
 //////////// SCATTER /////////////
 var datasetrandom = [];
@@ -145,7 +249,18 @@ svgr2 = d3.select("#svg6")
          .attr("width", w)
          .attr("height", h)
 
-svgr2.selectAll("circle")
+svgr2.append('clipPath')
+	 .attr('id', 'chart-area')
+	 .append('rect')
+	 .attr('x', padding)
+	 .attr('y', padding)
+	 .attr('width', w - padding * 3)
+	 .attr('height', h - padding * 2);
+
+svgr2.append('g')
+	.attr('id', 'circles')
+	.attr('clip-path', 'url(#chart-area)')
+	.selectAll("circle")
     .data(datasetrandom)
     .enter()
     .append("circle")
@@ -168,7 +283,7 @@ svgr2.append("g")
     .call(ryaxis);
 
 /// UPDATE ///
-d3.select("#button2")
+d3.select("#button3")
     .on("click", function() {
         var datasetrandom = [];
         var numDataPoints = 50;
@@ -194,7 +309,7 @@ d3.select("#button2")
             .duration(1000)
             .on('start', function() {
                 d3.select(this)
-                    .attr('fill', 'magenta')
+                    .attr('fill', 'teal')
                     .attr('r', 5);
             })
             .attr("cx", function(d) {

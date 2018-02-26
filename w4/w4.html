@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Page Template</title>
+        <script type="text/javascript" src="../d3/d3.js"></script>
+        <style media="screen">
+            #tooltip {
+                position: absolute;
+                width: 200px;
+                height: auto;
+                padding: 10px;
+                background-color: white;
+                -webkit-border-radius: 10px;
+                -moz-border-radius: 10px;
+                border-radius: 10px;
+                -webkit-box-shadow: 4px 40px 10px rgba(0, 0, 0, 0.4);
+                -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+                box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+                pointer-events: none;
+            }
+            #tooltip.hidden {
+                display: none;
+            }
+            #tooltip p {
+                margin: 0;
+                font-family: sans-serif;
+                font-size: 16px;
+                line-height: 20px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="svg1"></div>
+        <button id="sort_button" type="sort" name="sort">Sort bars</button>
+        <div id="tooltip" class="hidden">
+            <p><strong>Tooltip</strong></p>
+            <p><span id="value">100</span></p>
+        </div>
+        <script type="text/javascript", src="w4c10.js">
+
+        </script>
+    </body>
+</html>
