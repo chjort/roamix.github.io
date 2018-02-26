@@ -125,8 +125,8 @@ d3.csv('data\\part4_mens_open.csv', rowConverter, function(data_men) {
                             .attr('fill', 'orange')
 
                        d3.select('#tooltip')
-                            .style("left", (d3.event.pageX + 12) + "px")
-                            .style('top', (window.pageYOffset - d.Time + 80) + "px")
+                            .style("left", (d3.event.pageX + 20) + "px")
+                            .style('top', (window.pageYOffset - d.Time -10) + "px")
                             .style("opacity", 0.9)
                             .select('#time')
                             .text("Minutes: " + parseInt(d.Time))
@@ -218,8 +218,8 @@ d3.csv('data\\part4_mens_open.csv', rowConverter, function(data_men) {
                             .attr('fill', 'orange')
 
                        d3.select('#tooltip')
-                            .style("left", (d3.event.pageX + 12) + "px")
-                            .style('top', (window.pageYOffset - d.Time + 80) + "px")
+                            .style("left", (d3.event.pageX + 20) + "px")
+                            .style('top', (window.pageYOffset - d.Time -10) + "px")
                             .style("opacity", 0.9)
                             .select('#time')
                             .text("Minutes: " + parseInt(d.Time))
@@ -313,8 +313,8 @@ d3.csv('data\\part4_mens_open.csv', rowConverter, function(data_men) {
                             .attr('fill', 'orange')
 
                        d3.select('#tooltip')
-                            .style("left", (d3.event.pageX + 12) + "px")
-                            .style('top', (window.pageYOffset - d.Time + 80) + "px")
+                            .style("left", (d3.event.pageX + 20) + "px")
+                            .style('top', (window.pageYOffset - d.Time -10) + "px")
                             .style("opacity", 0.9)
                             .select('#time')
                             .text("Minutes: " + parseInt(d.Time))
