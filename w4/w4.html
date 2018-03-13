@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>D3 Page Template</title>
+        <title>Week 4</title>
         <script type="text/javascript" src="../d3/d3.js"></script>
         <style media="screen">
             #tooltip {
@@ -28,8 +28,28 @@
                 font-size: 16px;
                 line-height: 20px;
             }
-
-        </style>
+            .area {
+                fill: teal;
+                stroke: none;
+            }
+			.line {
+				fill: none;
+				stroke: teal;
+				stroke-width: 0.5;
+			}
+			.safeLevel {
+				stroke: red;
+				stroke-dasharray: 2, 3;
+			}
+			.danger {
+				stroke: red;
+			}
+			.dangerLabel {
+				font-family: Helvetica, sans-serif;
+				font-size: 12px;
+				fill: red;
+			}
+		</style>
     </head>
     <body>
         <div id="svg1"></div>
@@ -38,7 +58,12 @@
             <p><strong>Tooltip</strong></p>
             <p><span id="value">100</span></p>
         </div>
-        <script type="text/javascript", src="w4c10.js">
+
+        <br> <br>
+        <div id="c11"></div>
+        <script type="text/javascript", src="w4c11.js"></script>
+        <script type="text/javascript", src="w4c10.js"></script>
+
 
         </script>
     </body>

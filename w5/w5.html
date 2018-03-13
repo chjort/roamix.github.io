@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Week 5</title>
+        <script type="text/javascript" src="../d3/d3.js"></script>
+        <style type="text/css">
+            .area {
+				stroke: none;
+			}
+			.area:hover {
+				fill: yellow;
+			}
+        </style>
+    </head>
+    <body>
+
+        <div id="pie"></div>
+        <div id="stack"></div>
+        <div id="stack_area"></div>
+        <div id="force_layout"></div>
+
+
+        <script type="text/javascript">
+            var color = d3.scaleOrdinal(d3.schemeCategory10);
+        </script>
+        
+        <script type="text/javascript" src="c13_pie.js"></script>
+        <script type="text/javascript" src="c13_stack.js"></script>
+        <script type="text/javascript" src="c13_stack_area.js"></script>
+        <script type="text/javascript" src="c13_force_layout.js"></script>
+    </body>
+</html>
