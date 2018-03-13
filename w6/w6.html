@@ -4,13 +4,33 @@
         <meta charset="utf-8">
         <title>Week 6</title>
         <script type="text/javascript" src="../d3/d3.js"></script>
+        <style type="text/css">
+
+			.pan rect {
+				fill: black;
+				opacity: 0.2;
+			}
+			.pan text {
+				fill: black;
+				font-size: 18px;
+				text-anchor: middle;
+			}
+			.pan:hover rect,
+ 			.pan:hover text {
+				fill: blue;
+			}
+		</style>
     </head>
     <body>
 
-        <div id="usageomap"></div>
-        <div id="choropleth"></div>
-        <script type="text/javascript" src="c14_map.js"></script>
-        <script type="text/javascript" src="c14_choropleth.js"></script>
+        <!-- <div id="usageomap"></div>
+        <div id="choropleth"></div> -->
+        <!-- <div id="cities"></div> -->
+        <div id="pan"></div>
+        <!-- <script type="text/javascript" src="c14_map.js"></script>
+        <script type="text/javascript" src="c14_choropleth.js"></script> -->
+        <!-- <script type="text/javascript" src="c14_cities.js"></script> -->
+        <script type="text/javascript" src="c14_pan.js"></script>
 
     </body>
 </html>
