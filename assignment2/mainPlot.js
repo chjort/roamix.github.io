@@ -13,7 +13,8 @@ var margin = {
     },
     width = 800 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom,
-    height2 = 500 - margin2.top - margin2.bottom;
+    width2 = 850 - margin.left - margin.right,
+    height2 = 515 - margin2.top - margin2.bottom;
 
 //Define map projection
 var projection = d3.geoMercator()
@@ -28,21 +29,21 @@ var path = d3.geoPath()
 //Number formatting for gps location
 var formatAs2dec = d3.format(".5n");  //
 
-//Create SVG element
+// Create SVG element
 var svg = d3.select(".viz")
     .append("svg")
-    .attr("width", width + 200 + margin.left + margin.right)
+    .attr("width", width + 150 + margin.left + margin.right)
     .attr("height", height + 200 + margin.top + margin.bottom);
 
-//Create a container in which linegraph elements will live
+// Create a container in which linegraph elements will live
 var linegraph = svg.append("g")
     .attr("class", "linegraph")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", "translate(" + (margin.left + 50) + "," + margin.top + ")");
 
 // Create slider element for linegraph
 var slider = svg.append("g")
     .attr("class", "slider")
-    .attr("transform", "translate(" + (margin.left + 1.5) + "," + (margin.top - 0.5) + ")");
+    .attr("transform", "translate(" + (margin.left + 1.5 + 50) + "," + (margin.top - 0.5) + ")");
 
 //Create a container in which map elements will live (was id)
 var map = svg.append("g")
@@ -77,7 +78,7 @@ d3.json("boroughs.geojson", function (json) {
         var brush = d3.brushX()
             .extent([
                 [0, 0],
-                [width, height2]
+                [width2, height2]
             ])
             .on("brush end", brushed);
 
@@ -89,7 +90,7 @@ d3.json("boroughs.geojson", function (json) {
 
         var xScale = d3.scaleTime()
             .domain(d3.extent(sortedByDate, function (d) { return Date.parse(d.key) }))
-            .range([0, width]),
+            .range([0, width2]),
             yScale = d3.scaleLinear()
                 .domain([0, d3.max(sortedByDate, function (d) { return d.values.length })])
                 .range([height2, 0]);
@@ -114,7 +115,8 @@ d3.json("boroughs.geojson", function (json) {
             .datum(sortedByDate)
             .attr("class", "lineplot")
             .attr("d", line)
-            .attr("stroke", "steelblue")
+            .attr("fill", "none")
+            .attr("stroke", "darkorchid")
             .attr("opacity", 0.75);
 
         //Create xAxis
@@ -134,8 +136,7 @@ d3.json("boroughs.geojson", function (json) {
             .call(brush)
             .call(brush.move, xScale.range());
 
-        // Create circles
-        var circles = map
+        var circle = map
             .append("g")
             .selectAll("circle")
             .data(data)
@@ -147,11 +148,11 @@ d3.json("boroughs.geojson", function (json) {
             .attr("cy", function (d, i) {
                 return projection([d.Longitude, d.Latitude])[1];
             })
-            .attr("r", "1.5px")
-            .attr("class", "dot_map")
-            .style("fill", "red")
-            .style("stroke-width", 0.50)
-            .style("opacity", 0.6)
+            .attr("r", "2px")
+            .attr("class", "circle");
+
+        svg.call(brush)
+        svg.call(brush.move, xScale.range())
 
         //create brush function redraw scatterplot with selection
         function brushed() {
@@ -160,17 +161,10 @@ d3.json("boroughs.geojson", function (json) {
             if (selection !== null) {
                 var e = d3.event.selection.map(xScale.invert, xScale);
 
-                var test = slider.selectAll(".map");
+                var test = map.selectAll(".circle");
                 test.classed("selected", function (d) {
-                    return e[0] <= d.key && d.key <= e[1];
+                    return e[0] <= Date.parse(d.RPT_DT) && e[1] >= Date.parse(d.RPT_DT);
                 })
-
-                map.selectAll(".lineplot")
-                    .attr("d", line(
-                        data.filter(function (d) {
-                            return e[0] <= d.key && e[1] >= d.key;
-                        })
-                    ));
             }
         }
     });

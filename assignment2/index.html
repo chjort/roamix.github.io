@@ -12,29 +12,22 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<script type="text/javascript" src="d3/d3.js"></script>
 	<style media="screen">
-	#tooltip {
-		position: absolute;
-		width: 200px;
-		height: auto;
-		padding: 10px;
-		background-color: BlueViolet;
-		-webkit-border-radius: 10px;
-		-moz-border-radius: 10px;
-		border-radius: 10px;
-		-webkit-box-shadow: 4px 40px 10px rgba(0, 0, 0, 0.4);
-		-moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-		box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-		pointer-events: none;
+	.linegraph {
+
 	}
-	#tooltip.hidden {
-		display: none;
+	.circle {
+		fill-opacity: 0.0;
 	}
-	#tooltip p {
-		margin: 0;
-		font-family: sans-serif;
-		font-size: 16px;
-		line-height: 20px;
-		color: white;
+	.selected {
+		fill: #9932CC;
+		fill-opacity: 1.0;
+		stroke: #000000;
+
+		stroke-width: 1;
+		opacity: 0.25;
+	}
+	.viz {
+		background-color: none;
 	}
 	</style>
 </head>
@@ -104,19 +97,11 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
 	<!-- Part 2: Viz 1 -->
 	<div class="spotlight">
 	<div id="Part2" class="content">
-		<h3>Part 2: Viz</h3>
+		<h3>Part 2: Murders in New York City</h3>
 		<a href="#" class="button alt" style="margin-bottom: 50px">Back To Top</a>
 		<p>
 			The visualization to the right shows all murders in all of New York City over time. Each red dot is a murder,
 			and the timeline can be extended or shortened using the slider on the timeline.
-			<!-- The visualization to the right shows the distrubution of Farmer's produce over a unspecified year.
-			The buttons above the visualization control's which produce category to show.
-			<br>
-			It is easy to observe that fresh produce peaks in the mid-summer to fall seasons, i.e. July to Oktober.
-			What is interesting to observe, is that the storage produce peak inverse to fresh produce.
-			Storage produce peaks in the winter while being all time low in the mid-summer to fall.
-			This is not surprising, as there is no reason to storage produce in the mid-summer to fall seasons
-			when fresh produce is ready to be sold instead. -->
 		</p>
 </div>
 <div class="viz">
@@ -137,8 +122,6 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
 <script src="assets/js/util.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="mainPlot.js"></script>
-<!-- <script src="d3Linegraph.js"></script> -->
-<!-- <script src="d3MapPoints.js"></script> -->
 
 </body>
 </html>
