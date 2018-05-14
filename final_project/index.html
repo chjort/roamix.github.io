@@ -13,7 +13,7 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
 	<link href='bootstrap-3.3.7-dist/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
 	<link href='dc/dc.min.css' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="d3/d3.min.js"></script>
-	<script src='bootstrap-3.3.7-dist/js/bootstrap.min.js' type='text/javascript'></script>
+	<script src='bootstrap-3.3.7-dist/js/bootstr	ap.min.js' type='text/javascript'></script>
 	<script src='jquery-3.3.1.min.js' type='text/javascript'></script>
 	<script src="crossfilter/crossfilter.v1.min.js"></script>
 	<script src="dc/dc.js"></script>
@@ -66,13 +66,13 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
 			</section>
 			<section>
 				<section>
-					<p>This webpage explores data visualization and answers questions in accordance to assignment two, which consists of two sections:</p>
+					<p>This webpage provides a data story and exploration of the NYPD Motor Vehicle Collision dataset together with the NOAA weather dataset:</p>
 					<ol>
 						<li><a href="#Part1">NYC vehicle collisions since 2014</a></li>
 						<li><a href="#Part2">Visualization of vehicle collisions in NYC</a></li>
 						<li><a href="#Part3">Weather correllations with vehicle collisions in NYC</a></li>
 					</ol>
-					<p>Unless otherwise specified, all figure references and diagrams are credit due to Edward Segel and Jeffrey Heer's paper <a href="http://vis.stanford.edu/files/2010-Narrative-InfoVis.pdf">Narrative Visualization: Telling Stories with Data</a> or to references within.</p>
+					<p>The source code can be found at the following github repsitory <a href="https://github.com/Roamix/02806_social_data/tree/master/final_project">here.</a></p>
 					<p>
 						An explainer page can be found at <a href="/explainer.html">here.</a>
 					</p>
@@ -81,11 +81,12 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
 			</div>
 		</section>
 
+
 		<!-- Two -->
 		<section id="two" class="wrapper style2 alt">
 			<div class="inner">
 
-				<!-- Part 0: Intro Video -->
+				<!-- Part 1: Intro Video -->
 				<div class="spotlight">
 					<div id="Part1" class="content">
 						<h2>Introductory video</h2>
@@ -98,29 +99,22 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
 
 						<iframe width="560" height="315" src="https://www.youtube.com/embed/qoWFVZ0Xdkk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
+						<p>
+							Data-driven exploration requires a comprehensive dataset, which is why the New York City collisions are explored despite the fact that the majority of fatal collisions take place in the cities of LEDCs (less economically developed countries).
+						</p>
 						<a href="#" class="button alt" style="margin-bottom: 50px">Back To Top</a><br>
 					</div>
 				</div>
 
-				<!-- Part 1: History and introduction -->
-				<!-- <div class="spotlight">
-					<div id="Part1" class="content">
-						<h2>NYC Vehicle Collisions Since 2014</h2>
-
-						<p></p>
-
-						<a href="#" class="button alt" style="margin-bottom: 50px">Back To Top</a><br>
-					</div>
-				</div> -->
-
 				<!-- Part 2: Viz 1 -->
 				<div class="spotlight">
 					<div id="Part2" class="content">
-						<h2>Interactive Visuals on NYC collisions</h2>
+						<h2>The New York Dataset</h2>
+						<h4>Where and how are these collisions happening?</h4>
+						<p>
+							Presenting the comprehensive New York Collisions dataset with the help of interactive visuals let's us explore characteristics of collisions in NYC.
+						</p>
 
-						<p></p>
-
-						<a href="#" class="button alt" style="margin-bottom: 50px">Back To Top</a>
 					</div>
 				</div>
 
@@ -141,7 +135,9 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
 					</h2>
 				</div>
 
+
 				<div class='row'>
+					<!-- MAIN ACCIDENT FACTORS & ACCIDENTS BY BOROUGH -->
 					<div class='col-md-6'>
 						<div id='factor1-chart'>
 							<h4>
@@ -168,6 +164,7 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
 							</h4>
 						</div>
 					</div>
+					<!--  ZIP CODE CHOROPLETH-->
 					<div class='col-md-4'>
 						<div id='geo-chart'>
 							<h4>
@@ -184,21 +181,15 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
 					</div>
 				</div>
 
-				<!-- <div class='row'>
-					<div class='span12' id='geo-chart'>
-						<h4>
-							Choropleth
-							<span>
-								<a class="reset"
-								   href="allplots:geo_chart.filterAll();dc.redrawAll();"
-								   style="display: none;">
-									reset
-								</a>
-							</span>
-						</h4>
+				<div class="spotlight">
+					<div class="content">
+						<p>
+							The brush-able timeline has a complete plummet in data between July and October 2016. Most likely, some sort of data export error or system change / malfunction on the data provider's side caused this.
+						</p>
 					</div>
-				</div> -->
+				</div>
 
+				<!-- Timeline -->
 				<div class='row'>
 					<div class='span12' id='date-chart'>
 						<h4>
@@ -216,6 +207,18 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
 			</div>
 
 			<div class="inner">
+				<div class="spotlight">
+					<div class="content">
+						<p>
+							The nature of the main accident factors reveals that over 40% of collisions cannot be attributed to particular cause. Perhaps correlations can be found elsewhere.
+						</p>
+						<a href="#" class="button alt" style="margin-bottom: 50px">Back To Top</a>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="inner">
 				<!-- Part 3: Correlations -->
 				<div class="spotlight">
 					<div id="Part3" class="content">
@@ -228,13 +231,13 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
 						<p>
 							Dates organized by how much precipitation (rain, drizzle etc.) has occured compared to average number of collisions on those dates shows that, the more precipitation there is, the looser the correlation gets.
 						</p>
-						<img src="/assets/images/Col_Prcp.png">
+						<img src="final_project/assets/images/Col_Prcp.png">
 
 						<p>
 							Instead, a suspicion refered to in the introductory video is explored: Namely, dates binned by the daily peak temperature vs the average number of collisions on those dates.
 						</p>
 
-						<img src="/assets/images/Col_Temp.png">
+						<img src="final_project/assets/images/Col_Temp.png">
 
 						<p>
 							Warm days - which tend also to be sunny days - have a clear tendency to have a higher frequency og collisions. A reasonable explanation can be that focus and pay more attention in bad weather and inversely relax in nicer weather. Furthermore bright sun and glare can play a large contributing factor.
@@ -244,7 +247,7 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
 							Any reasonable driver primed for certain weather conditions may be more likely to be involved in a collision if the weather takes a large shift throughout the day. Days with greatest temperature shifts have - on average - a higher collision frequency.
 						</p>
 
-						<img src="/assets/images/Col_Temp-range.png">
+						<img src="final_project/assets/images/Col_Temp-range.png">
 
 						<h2>Heatmaps</h2>
 
@@ -252,7 +255,7 @@ Released for free under the Creative Commons Attribution 3.0 license (templated.
 							Heatmapping the peak temperatures together with temperature changes, shows collisions frequency is highest on hot days with great temperature change. The cutoff suggest that perhaps drivers experiencing temperature changes of 13°C or greater throughout a day slow down similiarly to drives who experience sudden hard rain.
 						</p>
 
-						<img src="/assets/images/HEATMAP_TEMP_TDELTA.png">
+						<img src="final_project/assets/images/HEATMAP_TEMP_TDELTA.png">
 
 						<!-- <img src="/assets/images/HEATMAP_TEMP_PREC.png"> -->
 
