@@ -1,0 +1,281 @@
+<!DOCTYPE HTML>
+<!--
+Prism by TEMPLATED
+templated.co @templatedco
+Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+<head>
+	<title>Final Project</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<link href='bootstrap-3.3.7-dist/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+	<link href='dc/dc.min.css' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="d3/d3.min.js"></script>
+	<script src='bootstrap-3.3.7-dist/js/bootstrap.min.js' type='text/javascript'></script>
+	<script src='jquery-3.3.1.min.js' type='text/javascript'></script>
+	<script src="crossfilter/crossfilter.v1.min.js"></script>
+	<script src="dc/dc.js"></script>
+	<style media="screen">
+		.dc-data-count {
+			float: right;
+			margin-top: 15px;
+			margin-right: 15px;
+		}
+
+		.dc-data-count .filter-count {
+			color: #3182bd;
+			font-weight: bold;
+		}
+
+		.dc-data-count .total-count {
+			color: #3182bd;
+			font-weight: bold;
+		}
+
+		h4 span {
+			font-size: 10px;
+			font-weight: normal;
+		}
+/*
+		h2 {
+			float: right;
+		} */
+
+		h2 span {
+			font-size: 12px;
+			font-weight: normal;
+		}
+		#viz {
+			position: relative;
+			left: 15%;
+
+		}
+	</style>
+</head>
+<body>
+
+
+	<!-- Banner -->
+	<section id="banner">
+		<div class="inner split">
+			<section>
+				<h2>NYC Vehicle Collisions</h2>
+				<h2><i><a href="https://github.com/suneman/socialdataanalysis2018/wiki">Social Data Analysis and Visualization</a></i></h2>
+			</section>
+			<section>
+				<section>
+					<p>This webpage explores data visualization and answers questions in accordance to assignment two, which consists of two sections:</p>
+					<ol>
+						<li><a href="#Part1">NYC vehicle collisions since 2014</a></li>
+						<li><a href="#Part2">Visualization of vehicle collisions in NYC</a></li>
+						<li><a href="#Part3">Weather correllations with vehicle collisions in NYC</a></li>
+					</ol>
+					<p>Unless otherwise specified, all figure references and diagrams are credit due to Edward Segel and Jeffrey Heer's paper <a href="http://vis.stanford.edu/files/2010-Narrative-InfoVis.pdf">Narrative Visualization: Telling Stories with Data</a> or to references within.</p>
+					<p>
+						An explainer page can be found at <a href="/explainer.html">here.</a>
+					</p>
+					</section>
+				</section>
+			</div>
+		</section>
+
+		<!-- Two -->
+		<section id="two" class="wrapper style2 alt">
+			<div class="inner">
+
+				<!-- Part 0: Intro Video -->
+				<div class="spotlight">
+					<div id="Part1" class="content">
+						<h2>Introductory video</h2>
+						<h4>Globally, <b>every single day</b> traffic collisions...</h4>
+						<ul>
+							<li>cause over a billion dollars in damages</li>
+							<li>injure or handicap tens of thousands of people</li>
+							<li>kill several thousands of people</li>
+						</ul>
+
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/qoWFVZ0Xdkk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+						<a href="#" class="button alt" style="margin-bottom: 50px">Back To Top</a><br>
+					</div>
+				</div>
+
+				<!-- Part 1: History and introduction -->
+				<!-- <div class="spotlight">
+					<div id="Part1" class="content">
+						<h2>NYC Vehicle Collisions Since 2014</h2>
+
+						<p></p>
+
+						<a href="#" class="button alt" style="margin-bottom: 50px">Back To Top</a><br>
+					</div>
+				</div> -->
+
+				<!-- Part 2: Viz 1 -->
+				<div class="spotlight">
+					<div id="Part2" class="content">
+						<h2>Interactive Visuals on NYC collisions</h2>
+
+						<p></p>
+
+						<a href="#" class="button alt" style="margin-bottom: 50px">Back To Top</a>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="inner">
+				<div class="dc-data-count" style="float: left;">
+					<h2>
+
+						<span>
+							<span class="filter-count"></span>
+							selected out of
+							<span class="total-count"></span>
+							records |
+							<a href="javascript:dc.filterAll(); dc.redrawAll();">Reset All</a>
+							<!-- <a href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a> -->
+						</span>
+					</h2>
+				</div>
+
+				<div class='row'>
+					<div class='col-md-6'>
+						<div id='factor1-chart'>
+							<h4>
+								Main accident factors
+								<span>
+									<a class="reset"
+									   href="allplots:factor1_chart.filterAll();dc.redrawAll();"
+									   style="display: none;">
+										reset
+									</a>
+								</span>
+							</h4>
+						</div>
+						<div id="borough-chart">
+							<h4>
+								Accidents by borough
+								<span>
+									<a class="reset"
+									   href="allplots:borough_chart.filterAll();dc.redrawAll();"
+									   style="display: none;">
+										reset
+									</a>
+								</span>
+							</h4>
+						</div>
+					</div>
+					<div class='col-md-4'>
+						<div id='geo-chart'>
+							<h4>
+								NYC Choropleth by Zip Code
+								<span>
+									<a class="reset"
+									   href="allplots:geo_chart.filterAll();dc.redrawAll();"
+									   style="display: none;">
+										reset
+									</a>
+								</span>
+							</h4>
+						</div>
+					</div>
+				</div>
+
+				<!-- <div class='row'>
+					<div class='span12' id='geo-chart'>
+						<h4>
+							Choropleth
+							<span>
+								<a class="reset"
+								   href="allplots:geo_chart.filterAll();dc.redrawAll();"
+								   style="display: none;">
+									reset
+								</a>
+							</span>
+						</h4>
+					</div>
+				</div> -->
+
+				<div class='row'>
+					<div class='span12' id='date-chart'>
+						<h4>
+							Timeline
+							<span>
+								<a class="reset"
+								   href="allplots:date_chart.filterAll();dc.redrawAll();"
+								   style="display: none;">
+									reset
+								</a>
+							</span>
+						</h4>
+					</div>
+				</div>
+			</div>
+
+			<div class="inner">
+				<!-- Part 3: Correlations -->
+				<div class="spotlight">
+					<div id="Part3" class="content">
+						<h2>Correlations between weather and vehicle collisions</h2>
+
+						<p>
+							As the interactive section suggests, a large quantity of the data is unspecified or consists of independent human errors. By crossreferencing the collision data with weather dataset, we explore any hidden correllations that may exists between the two datasets.
+						</p>
+
+						<p>
+							Dates organized by how much precipitation (rain, drizzle etc.) has occured compared to average number of collisions on those dates shows that, the more precipitation there is, the looser the correlation gets.
+						</p>
+						<img src="/assets/images/Col_Prcp.png">
+
+						<p>
+							Instead, a suspicion refered to in the introductory video is explored: Namely, dates binned by the daily peak temperature vs the average number of collisions on those dates.
+						</p>
+
+						<img src="/assets/images/Col_Temp.png">
+
+						<p>
+							Warm days - which tend also to be sunny days - have a clear tendency to have a higher frequency og collisions. A reasonable explanation can be that focus and pay more attention in bad weather and inversely relax in nicer weather. Furthermore bright sun and glare can play a large contributing factor.
+						</p>
+
+						<p>
+							Any reasonable driver primed for certain weather conditions may be more likely to be involved in a collision if the weather takes a large shift throughout the day. Days with greatest temperature shifts have - on average - a higher collision frequency.
+						</p>
+
+						<img src="/assets/images/Col_Temp-range.png">
+
+						<h2>Heatmaps</h2>
+
+						<p>
+							Heatmapping the peak temperatures together with temperature changes, shows collisions frequency is highest on hot days with great temperature change. The cutoff suggest that perhaps drivers experiencing temperature changes of 13°C or greater throughout a day slow down similiarly to drives who experience sudden hard rain.
+						</p>
+
+						<img src="/assets/images/HEATMAP_TEMP_TDELTA.png">
+
+						<!-- <img src="/assets/images/HEATMAP_TEMP_PREC.png"> -->
+
+						<a href="#" class="button alt" style="margin-bottom: 50px">Back To Top</a>
+					</div>
+				</div>
+
+				<ul class="actions special">
+					<li><a href="#banner" class="button alt">Back To Top</a></li>
+				</ul>
+			</div>
+
+		</section>
+
+			<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script src="allplots.js">
+
+			</script>
+			<!-- <script src="mainPlot.js"></script> -->
+
+		</body>
+		</html>

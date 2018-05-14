@@ -1,0 +1,282 @@
+﻿<!DOCTYPE HTML>
+<!--
+Prism by TEMPLATED
+templated.co @templatedco
+Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+<head>
+	<title>Final Project</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<script type="text/javascript" src="d3/d3.min.js"></script>
+	<script src="crossfilter/crossfilter.v1.min.js"></script>
+	<style media="screen">
+
+	</style>
+</head>
+<body>
+
+
+	<!-- Banner -->
+	<section id="banner">
+		<div class="inner split">
+			<section>
+				<h2>NYC Vehicle Collisions<br>Explainer Page</h2>
+				<!-- <h2>NYC Traffic Accidents<br><i><a href="https://github.com/suneman/socialdataanalysis2018/wiki">Social Data Analysis and Visualization</a></i></h2> -->
+			</section>
+			<section>
+				<section>
+					<p>This webpage functions as an indepth explanation of how the data story came to life. The explanation is comprised of the following sections:</p>
+					<ol>
+						<li><a href="#Part1">Motivation</a></li>
+						<li><a href="#Part2">Basic stats</a></li>
+						<li><a href="#Part3">Genre</a></li>
+						<li><a href="#Part4">Visualizations</a></li>
+						<li><a href="#Part5">Discussion</a></li>
+						<li><a href="#Part6">Contributions</a></li>
+					</ol>
+					<p>The accompanying data story is found and <a href="/"></a>NYC Vehicle Collisions</p>
+					</section>
+				</section>
+			</div>
+		</section>
+
+		<!-- Two -->
+		<section id="two" class="wrapper style2 alt">
+			<div class="inner">
+
+				<!-- Part 1: Motivation -->
+				<div class="spotlight">
+					<div id="Part1" class="content">
+						<h2>Motivation</h2>
+
+						<p>
+							The datasets we have choosen for our project are the NYPD Motor-Vehicle-Collision and the NY NOAA Weather dataset:
+							<ul type="circle">
+								<li><a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95" >data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions</a></li>
+								<li><a href="https://www.ncdc.noaa.gov/cdo-web/datasets">www.ncdc.noaa.gov/cdo-web/datasets</a></li>
+							</ul>
+							The NYPD dataset contains over 1 million rows of data with multiple rows of same date value and 29 features, with the
+							NOAA dataset containing the same amount of rows as dates in the NYPD dataset and 4 features.
+						</p>
+
+						<p>
+							Motivation for this project started with the idea of cross referencing the NY vehicle accident dataset
+							with the NY weather dataset, and see how much of the data correlates to the number of accidents and type of accidents.
+							With this data we hoped that certain trends would emerge visually and give an overview of the most dangerous areas in NY
+							with regard to the traffic. This means we could potentially help warn trafficants of accident prone areas
+							and be extra vigilant.
+						</p>
+						<p>
+							Our end goal was to have the user explore the data with regard to seasonal weather and the accidents in the different boroughs.
+							We put more focus on a visualized dashboard rather than a narrative story since we hope that seeing how and why accidents happen
+							in the different boroughs would send a message of driving accordingly to the weather conditions.
+						</p>
+
+						<a href="#" class="button alt" style="margin-bottom: 50px">Back To Top</a><br>
+					</div>
+				</div>
+
+				<!-- Part 2: Basic stats -->
+				<div class="spotlight">
+					<div id="Part2" class="content">
+						<h2>Basic stats</h2>
+
+						<p>
+							Starting with the NYPD dataset containing traffic collisions we ran a check of data completeness in python with the pandas library,
+							to see how much data was missing from each feature. Here we see the first 7 features in which we concentrated on making a complete dataset.
+						</p>
+
+						<ul type="circle">
+							<li>DATE is 100.00% complete</li>
+							<li>TIME is 100.00% complete</li>
+							<li>BOROUGH is 71.36% complete</li>
+							<li>ZIP CODE is 71.35% complete</li>
+							<li>LATITUDE is 82.57% complete</li>
+							<li>LONGITUDE is 82.57% complete</li>
+							<li>LOCATION is 82.57% complete</li>
+						</ul>
+
+						<p>
+							As we see, latitude and longitude has around 17.5% missing data. The dataset is filtered by removing all rows where the data is not complete,
+							In this case we remove all observations with latitude or longitude missing.
+						</p>
+
+						<ul type="circle">
+							<li>DATE is 100.00% complete</li>
+							<li>TIME is 100.00% complete</li>
+							<li>BOROUGH is 83.08% complete</li>
+							<li>ZIP CODE is 83.08% complete</li>
+							<li>LATITUDE is 100.00% complete</li>
+							<li>LONGITUDE is 100.00% complete</li>
+							<li>LOCATION is 100.00% complete</li>
+						</ul>
+
+						<p>
+							This is repeated with zip code and borough, such that we only work with observations that do not miss borough, zip code, or latitude/longitude.
+							Similar processing is applied to the NOAA weather data, such that we only keep observations for the same dates that we also have collison data on.
+							As we found out later, the data actually need further scrutiny, since as "Main accident factors" (See Data story) in the NYPD dataset
+							contained empty values ' ' and 'Unspecified'. These values are in of itself also data but it turned out to classify
+							almost a 1/4 of the NYPD data and does then not properly explain the reason of the accident. Whether or not to keep
+							this data is hard to evaluate but as of now we have decided to keep it. This shows atleast that for all the incidents
+							alot of them have not been properly recorded in the dataset and can be a cause of wrongly skewed data.
+						</p>
+						<p>
+							After all the preprocessing we ended up with a total of <b>425.992</b> observations/data points.
+						</p>
+
+						<a href="#" class="button alt" style="margin-bottom: 50px">Back To Top</a><br>
+					</div>
+				</div>
+
+				<!-- Part 3: Genre -->
+				<div class="spotlight">
+					<div id="Part3" class="content">
+						<h2>Genre</h2>
+
+						<p>
+							For our visual narrative we have:
+						</p>
+
+						<ul type="circle">
+							<li>Consistent visual platform</li>
+							<li>Feature distinction</li>
+							<li>Animated transitions</li>
+						</ul>
+						We wanted a strong visual dashboard with rich opportunities, therefore we decided for a consistent visual platform for the user to explore.
+						We chose many distinct features such as different plots and filtering across many groups to increases the explorability of our visualizations,
+						and together with animated transitions this should spark curiosity in the user.
+						<p>
+							And for our narrative structure we have:
+						</p>
+
+						<ul type="circle">
+							<li>Random access</li>
+							<li>Filtering / Selection / Hover Highlighting / Details</li>
+							<li>Caption / Headlines</li>
+						</ul>
+						<p>
+							Our narrative allows for highly random access, as the narrative is told from the highly configurable and unstructured visualization dashboard.
+							The interactivity of our narrative comes from the filtering, selecting, details and highlighting of our visualizations.
+							The site is mostly defined by captions and headlines, and these make up the overall structure of the website.
+						</p>
+
+						<a href="#" class="button alt" style="margin-bottom: 50px">Back To Top</a><br>
+					</div>
+				</div>
+
+				<!-- Part 4: Visualizations -->
+				<div class="spotlight">
+					<div id="Part4" class="content">
+						<h2>Visualizations</h2>
+
+						<p>
+						As we explained in the motivation, we put a heavy focus on a comprehensive and interactive
+						visualization dashboard. We wanted to have a dashboard where the user was free to play around and explore for them selves.
+						We decided for the following visualizations on the dashboard:
+						<ul>
+							<li>Doughnut chart</li>
+							<li>Bar chart</li>
+							<li>Choropleth</li>
+							<li>Timeline (Bar chart)</li>
+						</ul>
+						The doughnut chart is used to display the top 10 contributing factors of the traffic accidents. A doughnut chart is useful for visualizing
+						the percentage distribution of few to medium amounts of categories, especially if the categories are not ordinal. The barchart plots the number
+						of collisons per borough and a barchart is more fitting for this as we have few categories with quantitative data. The choropleth is a visual pleaser,
+						and gives a sense of the distribution of collisions geographically. Finally the timeline is represented by a barchart, which is the optimal choice.
+						Furthermore, we wanted ALL the figures to interact with each other, such that the user has maximum ability to filter and explore the data.
+						We chose these four different charts, because they cover most of the visualization types we learned about in this course. Also, having many different types of charts
+						allows the visualizations to extract more varied information out of the data.
+						</p>
+						<p>
+							These complex and dynamic visualizations and the dashboard is fitting for our data story, as we seek a detailed look into the collisions of new york,
+							where the user has a lot of control of what they want to explore. Less focus has been put on telling a straight chronologic story, where the user instead would have their hand held all the time.
+						</p>
+
+						<a href="#" class="button alt" style="margin-bottom: 50px">Back To Top</a><br>
+					</div>
+				</div>
+
+				<!-- Part 5: Discussion -->
+				<div class="spotlight">
+					<div id="Part5" class="content">
+						<h2>Discussion</h2>
+						<p>Even though we purposely put heavy focus on advanced and comprehensive visualizations, and less on a chronologic data story,
+							we would admittedly have liked to have a more indepth story. Our "data story" is more like a data analysis/exploration that
+							where we interpret our visualizations and correlation figures.
+						</p>
+						<p>Secondly, we aimed to have high performance visualizations with as many observations as possible. To achieve this we explored
+						the Javascript library <a href="http://square.github.io/crossfilter/">Crossfilter</a>, which enables fast filtering of large datasets in the browser.
+						This library can be used with D3.js to construct high performance visualizations. Combining Crossfilter and D3 was harder than originally thought, but
+						then we found the library <a href="https://dc-js.github.io/dc.js/">dc.js</a>. DC.js is a library build on D3.js with native Crossfilter support.
+						This library made it easier for us to combine Crossfilter and D3.js
+						</p>
+
+						<p>
+							Despite the our several visualizations, there are still more visualizations we would have liked to include. We especially wanted a stacked bar chart
+							of pedestrains, cyclists and motorists, and how many was injured/killed in the selected collisions, but we did not manage to get it to work. Initially we
+							also planned to have a scatter plot of all collisions on top of a geographial chart, however, with 425.992 observations this was simply not possible, so we went
+							with a choropleth instead.
+							Furthermore, we are missing visualizations of the weather data, as we would have liked the possibility to filter collisions by weather condition. These would no doubt have made our narrative better and more interesting, but we simply ran out of time
+							to implement this functionality, and instead the weather data is only used for correlation analysis.
+						</p>
+
+						<a href="#" class="button alt" style="margin-bottom: 50px">Back To Top</a><br>
+					</div>
+				</div>
+
+				<!-- Part 6: Contributions -->
+				<div class="spotlight">
+					<div id="Part6" class="content">
+						<h2>Contributions</h2>
+
+						<b>Christoffer Hjort s144224:</b>
+						<ul>
+							<li>Setup of website and structure</li>
+							<li>NYPD collision data preprocessing</li>
+							<li>Choropleth plot</li>
+							<li>Timeline plot</li>
+							<li>Explainer section 4, section 5, and contribute section 2, contribute section 3</li>
+						</ul>
+
+						<b>Daniel Thoren s144222:</b>
+						<ul>
+							<li>NOAA weather data preprocessing</li>
+							<li>Data exploration and correlation analysis</li>
+							<li>Python correlation and weather plots</li>
+							<li>Story introduction</li>
+							<li>Visualization interpretations and story telling</li>
+						</ul>
+
+						<b>Michael Jensen s141868:</b>
+						<ul>
+							<li>NYPD collision data preprocessing</li>
+							<li>Doughnut chart</li>
+							<li>Borough chart</li>
+							<li>Explainer section 1, section 2, section 3, contribute section 4, contribute section 5</li>
+						</ul>
+
+						<a href="#" class="button alt" style="margin-bottom: 50px">Back To Top</a><br>
+					</div>
+				</div>
+
+				<ul class="actions special">
+					<li><a href="#banner" class="button alt">Back To Top</a></li>
+				</ul>
+			</div>
+		</section>
+
+			<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script src="allplots.js">
+
+			</script>
+			<!-- <script src="mainPlot.js"></script> -->
+
+		</body>
+		</html>
